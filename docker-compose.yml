@@ -1,0 +1,17 @@
+upstreams:
+  image: redis
+dproxy:
+  image: dproxy/dproxy
+  links:
+    - upstreams:upstreams
+  ports:
+    - "80:80"
+  volumes:
+    - "/var/log/dproxy:/var/log/nginx"
+linkd:
+  image: dproxy/linkd
+  links:
+    - upstreams:upstreams
+  volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+
